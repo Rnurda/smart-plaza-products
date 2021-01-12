@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/productsFragment">
+    <fragment
+        android:id="@+id/productsFragment"
+        android:name="com.example.productssearch.ui.products.ProductsFragment"
+        android:label="Smart Plaza"
+        tools:layout="@layout/fragment_products">
+        <action
+            android:id="@+id/action_productsFragment_to_detatilsFragment"
+            app:destination="@id/detatilsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/detatilsFragment"
+        android:name="com.example.productssearch.ui.details.DetatilsFragment"
+        tools:layout="@layout/fragment_details">
+        <argument
+            android:name="photo"
+            app:argType="com.example.productssearch.data.SmartPlazaProduct" />
+    </fragment>
+</navigation>

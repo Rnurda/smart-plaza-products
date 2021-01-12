@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">ProductsSearch</string>
+    <string name="price_cross_out"><strike>500тг</strike></string>
+</resources>
