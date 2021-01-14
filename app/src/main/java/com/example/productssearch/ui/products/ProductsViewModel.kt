@@ -26,6 +26,8 @@ class ProductsViewModel @ViewModelInject constructor(
     }
 
     companion object{
-        private val DEFAULR_QUERY = filterModel("","",999999999, 0)
+        private val DEFAULR_QUERY = filterModel("","", ProductsViewModel.HIGH_PRICE, ProductsViewModel.LOW_PRICE)
+        const val HIGH_PRICE = 999999999
+        const val LOW_PRICE = 0
     }
 }

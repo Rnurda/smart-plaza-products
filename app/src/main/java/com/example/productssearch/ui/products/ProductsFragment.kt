@@ -26,6 +26,7 @@ class ProductsFragment : Fragment(R.layout.fragment_products), SmartPlazaProduct
 
     private var _binding: FragmentProductsBinding? = null
     val binding get() = _binding!!
+    private lateinit var search_view_et: SearchView
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -76,15 +77,15 @@ class ProductsFragment : Fragment(R.layout.fragment_products), SmartPlazaProduct
         inflater.inflate(R.menu.menu_product, menu)
 
         val searchItem = menu.findItem(R.id.action_search)
-        val searchView = searchItem.actionView as SearchView
+        search_view_et = searchItem.actionView as SearchView
 
-        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener{
+        search_view_et.setOnQueryTextListener(object : SearchView.OnQueryTextListener{
             override fun onQueryTextSubmit(query: String?): Boolean {
                 if(query!=null){
-                    var filermod = filterModel(query,"",999999999,0)
+                    var filermod = filterModel(query,"",ProductsViewModel.HIGH_PRICE,ProductsViewModel.LOW_PRICE)
                     binding.recyclerView.scrollToPosition(0)
                     viewModel.searchProducts(filermod)
-                    searchView.clearFocus()
+                    search_view_et.clearFocus()
                 }
                 return true
             }
@@ -108,9 +109,14 @@ class ProductsFragment : Fragment(R.layout.fragment_products), SmartPlazaProduct
     }
 
     override fun onResultSuccess(sortName: String, highCost: String, lowCost: String) {
-            var filermod = filterModel("", sortName, highCost.toInt(), lowCost.toInt())
-            binding.recyclerView.scrollToPosition(0)
-            viewModel.searchProducts(filermod)
+
+        var filermod = if(search_view_et.query!=null) {
+           filterModel(search_view_et.query.toString(),sortName, highCost.toInt(), lowCost.toInt())
+        }else{
+            filterModel("",sortName, highCost.toInt(), lowCost.toInt())
+        }
+        binding.recyclerView.scrollToPosition(0)
+        viewModel.searchProducts(filermod)
 
     }
 

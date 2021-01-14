@@ -28,11 +28,13 @@ class FilterDialog(
             val sort  = radioGroup.checkedRadioButtonId
             val sorName = if(sort == R.id.costDescend){
                 "costDescend"
+            }else if(sort == R.id.costAscend){
+                "costAscend"
             }else{
-                "costAccent"
+                ""
             }
-            val ed_ot_price = if(text_view_low_price.text.isBlank())"0" else text_view_low_price.text.toString()
-            val ed_do_price = if(text_view_high_price.text.isBlank())"9999999" else text_view_high_price.text.toString()
+            val ed_ot_price = if(text_view_low_price.text.isBlank()) ProductsViewModel.LOW_PRICE.toString() else text_view_low_price.text.toString()
+            val ed_do_price = if(text_view_high_price.text.isBlank()) ProductsViewModel.HIGH_PRICE.toString() else text_view_high_price.text.toString()
 
             onClickSaveBtn(sorName, ed_do_price, ed_ot_price)
 
